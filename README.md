@@ -1,6 +1,6 @@
 # zest
 
-Online Marketplace Designed for Cambodians
+Online Marketplace
 
 ## Getting Started
 
