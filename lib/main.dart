@@ -22,7 +22,7 @@ class Zest extends StatelessWidget {
         primaryColor: Palette.kToLight[20],
         primarySwatch: Palette.kToLight,
       ),
-      home: const MyHomePage(title: 'Zest'),
+      home: const MyHomeScreen(title: 'Zest'),
     );
   }
 }
