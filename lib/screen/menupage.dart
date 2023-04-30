@@ -9,10 +9,9 @@ class MyMenuPage extends StatefulWidget {
 
 class _MyMenuPageState extends State<MyMenuPage> {
 
-
-@override
-Widget build(BuildContext context) =>
-    Scaffold(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,4 +23,5 @@ Widget build(BuildContext context) =>
         ),
       ),
     );
+  }
 }

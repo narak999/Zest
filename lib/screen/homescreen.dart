@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+//import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:zest/screen/profilepage.dart';
 import 'package:zest/screen/transition/ripplepagetransition.dart';
 import 'package:zest/utils/palette.dart';
-import 'bottomappbar.dart';
+import 'widget/bottomappbar.dart';
 import 'cartpage.dart';
 import 'homepage.dart';
 import 'menupage.dart';
@@ -27,10 +27,10 @@ class _MyHomeScreenState extends State<MyHomeScreen> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1)).then((value) =>
-    {
-      FlutterNativeSplash.remove()
-    });
+    // Future.delayed(const Duration(seconds: 1)).then((value) =>
+    // {
+    //   FlutterNativeSplash.remove()
+    // });
     _ripplePageTransition = RipplePageTransition(_fabButtonKey);
   }
 
@@ -39,8 +39,19 @@ class _MyHomeScreenState extends State<MyHomeScreen> with TickerProviderStateMix
       Stack(children: [
         Scaffold(
           appBar: AppBar(
-            title: Text(widget.title),
+            title: Row(
+              children: <Widget>[
+                  Text(widget.title),
+                  const Spacer(flex: 1),
+                  Image.asset(
+                  'assets/logo/png/lemon-29-64.png',
+                  fit: BoxFit.cover,
+                  height: 50,
+                  ),
+                ],
+            ),
             centerTitle: true,
+            automaticallyImplyLeading: false,
           ),
           body: PageView(
             controller: pageController,
@@ -63,6 +74,7 @@ class _MyHomeScreenState extends State<MyHomeScreen> with TickerProviderStateMix
           floatingActionButton: _floatingActionButton,
           floatingActionButtonLocation: FloatingActionButtonLocation
               .centerDocked,
+          resizeToAvoidBottomInset: false,
           bottomNavigationBar: MyBottomAppBar(
             pageController: pageController,
             color: Colors.grey,

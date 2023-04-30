@@ -9,10 +9,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-
-@override
-Widget build(BuildContext context) =>
-    Scaffold(
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -24,4 +23,5 @@ Widget build(BuildContext context) =>
         ),
       ),
     );
+  }
 }

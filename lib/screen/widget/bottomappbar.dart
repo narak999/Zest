@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:zest/screen/transition/animationcurve.dart';
 
 class MyBottomAppBarItem {
   MyBottomAppBarItem({this.iconData, this.text, this.tooltip});
@@ -31,7 +30,7 @@ class MyBottomAppBar extends StatefulWidget {
   State<MyBottomAppBar> createState() => MyBottomAppBarState();
 }
 
-class MyBottomAppBarState extends State<MyBottomAppBar> {
+class MyBottomAppBarState extends State<MyBottomAppBar> with TickerProviderStateMixin{
   int _selectedIndex = 0;
 
   _updateIndex(int index) {
@@ -90,8 +89,7 @@ class MyBottomAppBarState extends State<MyBottomAppBar> {
             onTap: () {
               HapticFeedback.heavyImpact();
               onPressed(index);
-              widget.pageController.animateToPage(_selectedIndex, duration: const Duration(milliseconds: 500), curve: Curves.easeIn);
-              widget.pageController.jumpToPage(_selectedIndex);
+              widget.pageController.animateToPage(_selectedIndex, duration: const Duration(milliseconds: 300), curve: Curves.easeInExpo);
               },
             child: Column(
               mainAxisSize: MainAxisSize.min,
