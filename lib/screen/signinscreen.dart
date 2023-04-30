@@ -49,27 +49,23 @@ class _SignInScreenState  extends State<SignInScreen> {
                 ),
               ),
               Padding(
-                //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
                   enabled: !_isLoading,
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Email',
-                      hintText: 'Enter a Valid Email Address'),
+                      prefixIcon: Icon(Icons.alternate_email),
+                      hintText: 'Email Address'),
                 ),
               ),
+              const SizedBox(height: 10),
               Padding(
-                padding: const EdgeInsets.only(
-                    left: 15.0, right: 15.0, top: 15, bottom: 0),
-                //padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: TextField(
                   enabled: !_isLoading,
                   obscureText: true,
                   decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Password',
-                      hintText: 'Enter a Secure Password'),
+                      prefixIcon: Icon(Icons.lock),
+                      hintText: 'Password'),
                 ),
               ),
               const SizedBox(
@@ -89,7 +85,13 @@ class _SignInScreenState  extends State<SignInScreen> {
               ),
               ElevatedButton.icon(
                   onPressed: _isLoading ? null : _onSubmit,
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.lightBlue ,padding: const EdgeInsets.all(16.0)),
+                  style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(const Size(200, 50)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      )),
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                  ),
                   icon: _isLoading
                       ? Container(
                           width: 24,
