@@ -38,21 +38,6 @@ class _MyHomeScreenState extends State<MyHomeScreen> with TickerProviderStateMix
   Widget build(BuildContext context) =>
       Stack(children: [
         Scaffold(
-          appBar: AppBar(
-            title: Row(
-              children: <Widget>[
-                  Text(widget.title),
-                  const Spacer(flex: 1),
-                  Image.asset(
-                  'assets/logo/png/lemon-29-64.png',
-                  fit: BoxFit.cover,
-                  height: 50,
-                  ),
-                ],
-            ),
-            centerTitle: true,
-            automaticallyImplyLeading: false,
-          ),
           body: PageView(
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
