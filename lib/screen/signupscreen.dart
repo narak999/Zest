@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:zest/screen/widget/textfieldwidget.dart';
 
@@ -16,9 +17,12 @@ class SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _givenNameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  String _email, _password;
   bool _isLoading = false;
 
-  void _onSubmit() {
+  Future<void> _onSubmit() async {
     final form = _formKey.currentState;
     if (form.validate()) {
       setState(() => _isLoading = true);
@@ -28,6 +32,20 @@ class SignUpScreenState extends State<SignUpScreen> {
           _isLoading = false,
         }),
       );
+
+      final User user = (await
+      _auth.createUserWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text
+      )
+      ).user;
+      print("Got here $user");
+      
+      // if (_success) {
+      //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      //     content: Text("Successfully Registered!"),
+      //   ));
+      // }
     }
   }
 
@@ -53,8 +71,8 @@ class SignUpScreenState extends State<SignUpScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            const Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 50, fontWeight: FontWeight.bold)),
-                            const SizedBox(height: 40),
+                            const Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 40, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 30),
                             TextFieldWidget(
                               icon: Icons.person,
                               isLoading: _isLoading,
@@ -95,6 +113,17 @@ class SignUpScreenState extends State<SignUpScreen> {
                               textInputType: TextInputType.emailAddress,
                               hintText: 'Email Address',
                               isEmptyText: 'Please enter your email address',
+                              invalidText: 'Please enter a valid email address',
+                              isNumericOrAlphabet: false,
+                            ),
+                            const SizedBox(height: 15),
+                            TextFieldWidget(
+                              icon: Icons.password,
+                              isLoading: _isLoading,
+                              textEditingController: _passwordController,
+                              textInputType: TextInputType.text,
+                              hintText: 'Password',
+                              isEmptyText: 'Password cannot be empty!',
                               invalidText: 'Please enter a valid email address',
                               isNumericOrAlphabet: false,
                             ),

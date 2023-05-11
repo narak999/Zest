@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:zest/screen/forgotpasswordscreen.dart';
 import 'package:zest/screen/homescreen.dart';
 import 'package:zest/screen/signupscreen.dart';
@@ -16,6 +17,12 @@ class _SignInScreenState  extends State<SignInScreen> {
   final TextEditingController _passwordController = TextEditingController();
   bool _isLoading = false;
   bool _obscureText = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Firebase.initializeApp();
+  }
 
   void _onSubmit() {
     final form = _formKey.currentState;

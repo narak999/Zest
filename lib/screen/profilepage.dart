@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:zest/screen/signinscreen.dart';
+import 'package:zest/services/AuthProvider.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key key}) : super(key: key);
@@ -15,7 +18,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
       appBar: AppBar(
         title: Row(
           children: <Widget>[
-            Text('Zest'),
+            const Text('Zest'),
             const Spacer(flex: 1),
             Image.asset(
               'assets/logo/png/lemon-29-64.png',
@@ -30,10 +33,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'Profile Page',
-            ),
+          children: <Widget>[
+            ElevatedButton(
+                onPressed: () {
+                  AuthProvider().signOut();
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const SignInScreen()),
+                  );
+                },
+                child: const Text('Sign Out')
+            )
           ],
         ),
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:zest/screen/profilepage.dart';
 import 'package:zest/screen/transition/ripplepagetransition.dart';
 import 'package:zest/utils/palette.dart';

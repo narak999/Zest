@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-//import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:zest/screen/homescreen.dart';
 import 'package:zest/screen/signinscreen.dart';
 import 'package:zest/utils/palette.dart';
 
-Future<void> main() async {
-  // WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  );
   runApp(const Zest());
 }
 
@@ -27,7 +30,31 @@ class Zest extends StatelessWidget {
         primaryColor: Palette.kToLight[20],
         primarySwatch: Palette.kToLight,
       ),
-      home: const SignInScreen(),
+      home: const Checking(),
+    );
+  }
+}
+
+
+class Checking extends StatelessWidget {
+  const Checking({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if(snapshot.connectionState == ConnectionState.active) {
+          User user = snapshot.data;
+          if (user == null) {
+            return const SignInScreen();
+          } else {
+            return const MyHomeScreen(title: "Zest");
+          }
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

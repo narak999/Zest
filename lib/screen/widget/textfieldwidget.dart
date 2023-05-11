@@ -64,12 +64,48 @@ class _TextFieldWidgetState  extends State<TextFieldWidget> {
   }
 }
 
-bool isNumericOrAlphabet(bool check, String str, String hint) {
-  if (check) {
+bool isNumericOrAlphabet(bool checkForNumericOrAlphabet, String str, String hint) {
+  if (checkForNumericOrAlphabet) {
     return RegExp(r'^[0-9]+$').hasMatch(str);
   }
   if (hint.toLowerCase().contains('email')) {
     return RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(str);
+  } else if (hint.toLowerCase().contains('password')) {
+    return isPasswordValid(str);
   }
   return RegExp("^[a-zA-Z]+\$").hasMatch(str);
+}
+
+bool isPasswordValid(String password) {
+  if (password == null || password.isEmpty || password.length < 8) {
+    return false;
+  }
+
+  bool hasNumber = false;
+  bool hasSymbol = false;
+  int repeatedChars = 1;
+  String previousChar = password[0];
+
+  for (int i = 1; i < password.length; i++) {
+    String currentChar = password[i];
+
+    if (currentChar == previousChar) {
+      repeatedChars++;
+      if (repeatedChars > 3) {
+        return false;
+      }
+    } else {
+      repeatedChars = 1;
+    }
+
+    if (currentChar.contains(RegExp(r'[0-9]'))) {
+      hasNumber = true;
+    } else if (currentChar.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+      hasSymbol = true;
+    }
+
+    previousChar = currentChar;
+  }
+
+  return hasNumber && hasSymbol;
 }
